@@ -17,6 +17,7 @@ import qs from 'qs';
 import Pug from 'pug';
 import i18next from 'i18next';
 import ru from './locales/ru.js';
+import webpackConfig from '../webpack.config.js';
 // @ts-ignore
 
 import addRoutes from './routes/index.js';
@@ -28,9 +29,12 @@ import FormStrategy from './lib/passportStrategies/FormStrategy.js';
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
 
 const mode = process.env.NODE_ENV || 'development';
-// const isDevelopment = mode === 'development';
+const isDevelopment = mode === 'development';
 
 const setUpViews = (app) => {
+  const { devServer } = webpackConfig;
+  const devHost = `http://${devServer.host}:${devServer.port}`;
+  const domain = isDevelopment ? devHost : '';
   const helpers = getHelpers(app);
   app.register(pointOfView, {
     engine: {
@@ -39,7 +43,7 @@ const setUpViews = (app) => {
     includeViewExtension: true,
     defaultContext: {
       ...helpers,
-      assetPath: (filename) => `/assets/${filename}`,
+      assetPath: (filename) => `${domain}/assets/${filename}`,
     },
     templates: path.join(__dirname, '..', 'server', 'views'),
   });
