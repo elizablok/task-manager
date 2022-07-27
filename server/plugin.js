@@ -100,7 +100,7 @@ const registerPlugins = (app) => {
   app.decorate('authenticate', (...args) => fastifyPassport.authenticate(
     'form',
     {
-      failureRedirect: app.reverse('root'),
+      failureRedirect: app.reverse('root#index'),
       failureFlash: i18next.t('flash.authError'),
     },
   // @ts-ignore
