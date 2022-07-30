@@ -1,14 +1,20 @@
 [
   {
+    "firstName": "Elbert",
+    "lastName": "Abshire",
     "email": "elbert_abshire52@gmail.com",
     "passwordDigest": "5f9b60f2fdeefeb82add76f9acfe629e2844987d245c9f07005dda1e1316c3f6"
   },
   {
+    "firstName": "Lawrence",
+    "lastName": "Kulas",
     "email": "lawrence.kulas87@outlook.com",
-    "passwordDigest": "87c6374c24969f2af49433baa6d8b96e2bdb17a509b79049d2edb4fde98e4c46"
+    "passwordDigest": "9b883a89ace70dd9c950a02d62b4aa50aee3000d3e70b00d4a9684e0c4c7f451"
   },
   {
+    "firstName": "Nona",
+    "lastName": "Murray",
     "email": "nona_murray@yahoo.com",
-    "passwordDigest": "760391e7dceb3cf65ee23e97ca3db8c1515d18c3434b003c1fd781053afcf86f"
+    "passwordDigest": "4d6225863d764337cfd50d92a3e64291f0c2d96c9ab56c33f68a0bffaac4a37b"
   }
 ]

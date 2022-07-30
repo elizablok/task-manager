@@ -1,12 +1,12 @@
 extends ../layouts/application.pug
 
 block header
-  = t('views.users.new.title')
+  = t('views.users.edit.title')
 
 block content
-  +formFor()(action=route('users') method='post')
+  +formFor()(action=route('editUser') method='patch')
     +input(user, t('views.users.firstName'), errors)(type="text")
     +input(user, t('views.users.lastName'), errors)(type="text")
     +input(user, t('views.users.email'), errors)(type="text")
     +input(user, t('views.users.password'), errors)(type="password")
-    +submit(user)(value=t('views.users.new.submit'))
+    +submit(user)(value=t('views.users.edit.submit'))

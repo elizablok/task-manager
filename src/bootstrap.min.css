@@ -12314,3 +12314,24 @@
  .alert-dark {
      background-color: #303030
  }
+
+ a {
+    color: #87CEFA;
+    text-decoration: underline
+}
+
+.nav-link {
+    color: #87CEFA;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: #7B68EE;
+}
+
+a:hover {
+    color: #7B68EE;
+}
+
+body {
+    background-color: #2C1616;
+}

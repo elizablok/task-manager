@@ -5,11 +5,18 @@ block content
     thead
       tr
         th= t('views.users.id')
+        th= t('views.users.fullName')
         th= t('views.users.email')
         th= t('views.users.createdAt')
+        th= t('views.users.actions')
     tbody
+      if (users)
       each user in users
         tr
           td= user.id
+          td= user.first_name + ' ' + user.last_name
           td= user.email
           td= formatDate(user.createdAt)
+          td
+              a(href=route('editedUser', { id: user.id }))= t('views.users.index.edit')
+              +buttonTo(route('deleteUser', { id: user.id }), 'post')(class="btn" value=t('views.users.index.delete'))
