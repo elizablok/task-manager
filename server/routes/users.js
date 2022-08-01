@@ -19,14 +19,13 @@ export default (app) => {
         req.flash('error', i18next.t('flash.users.edit.failure'));
         return reply.redirect(app.reverse('users'));
       }
-      const user = await new app.objection.models.user().query().findById(editUserId);
+      const user = await app.objection.models.user.query().findById(editUserId);
       reply.render('users/edit', { user });
       return reply;
     })
-    .post('/users', async (req, reply) => {
+    .post('/users', { name: 'postUser' }, async (req, reply) => {
       const user = new app.objection.models.user();
       user.$set(req.body.data);
-
       try {
         const validUser = await app.objection.models.user.fromJson(req.body.data);
         await app.objection.models.user.query().insert(validUser);
@@ -40,18 +39,21 @@ export default (app) => {
       return reply;
     })
     .patch('/users/:id', { name: 'editUser', preValidation: app.authenticate }, async (req, reply) => {
-      const user = await new app.objection.models.user().query().findById(req.params.id);
-
+      if (Number(req.params.id) !== Number(req.user.id)) {
+        req.flash('error', i18next.t('flash.users.update.failure'));
+        return reply.redirect(app.reverse('users'));
+      }
+      const user = await app.objection.models.user.query().findById(req.params.id);
       try {
         await user.$query().patch(req.body.data);
         req.flash('info', i18next.t('flash.users.update.success'));
         return reply.redirect(app.reverse('users'));
-      } catch({ data }) {
-
+      } catch ({ data }) {
+        user.$set(req.body.data);
         req.flash('error', i18next.t('flash.users.update.failure'));
         reply.render('users/edit', { user, errors: data });
-        return reply;
       }
+      return reply;
     })
     .delete('/users/:id', { name: 'deleteUser', preValidation: app.authenticate }, async (req, reply) => {
       const deleteUserId = req.params.id;
@@ -62,7 +64,7 @@ export default (app) => {
       }
 
       try {
-        await new app.objection.models.user().query().deleteById(deleteUserId);
+        await app.objection.models.user.query().deleteById(deleteUserId);
         await req.logOut();
         req.flash('info', i18next.t('flash.users.delete.success'));
         return reply.redirect(app.reverse('users'));
@@ -71,5 +73,5 @@ export default (app) => {
         reply.redirect(app.reverse('users'));
         return reply;
       }
-    })
+    });
 };

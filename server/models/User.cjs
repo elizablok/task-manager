@@ -20,7 +20,7 @@ module.exports = class User extends unique(BaseModel) {
         firstName: { type: 'string', minLength: 1 },
         lastName: { type: 'string', minLength: 1 },
         email: { type: 'string', minLength: 1, pattern: '^\\S+@\\S+\\.\\S+$' },
-        password: { type: 'string', minLength: 3, pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$' },
+        password: { type: 'string', minLength: 8, pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$' },
       },
     };
   }
@@ -31,5 +31,9 @@ module.exports = class User extends unique(BaseModel) {
 
   verifyPassword(password) {
     return encrypt(password) === this.passwordDigest;
+  }
+
+  get name() {
+    return `${this.firstName} ${this.lastName}`;
   }
 }

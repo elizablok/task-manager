@@ -14,9 +14,9 @@ block content
       each user in users
         tr
           td= user.id
-          td= user.first_name + ' ' + user.last_name
+          td= user.name
           td= user.email
           td= formatDate(user.createdAt)
           td
               a(href=route('editedUser', { id: user.id }))= t('views.users.index.edit')
-              +buttonTo(route('deleteUser', { id: user.id }), 'post')(class="btn" value=t('views.users.index.delete'))
+              +buttonTo(route('deleteUser', { id: user.id }), 'delete')(class="btn" value=t('views.users.index.delete'))

@@ -1,10 +1,7 @@
-// @ts-check
-
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fastifyStatic from 'fastify-static';
 import fastifyErrorPage from 'fastify-error-page';
-
 import pointOfView from 'point-of-view';
 import fastifyFormbody from 'fastify-formbody';
 import fastifySecureSession from 'fastify-secure-session';
@@ -26,7 +23,6 @@ import models from './models/index.js';
 import FormStrategy from './lib/passportStrategies/FormStrategy.js';
 
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
-
 const mode = process.env.NODE_ENV || 'development';
 const isDevelopment = mode === 'development';
 
@@ -62,7 +58,7 @@ const setupLocalization = async () => {
     .init({
       lng: 'ru',
       fallbackLng: 'en',
-      // debug: isDevelopment,
+      debug: isDevelopment,
       resources: {
         ru,
       },
