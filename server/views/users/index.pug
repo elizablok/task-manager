@@ -4,11 +4,11 @@ block content
   table.table.table-striped
     thead
       tr
-        th= t('views.users.id')
+        th= t('views.fields.id')
         th= t('views.users.fullName')
         th= t('views.users.email')
-        th= t('views.users.createdAt')
-        th= t('views.users.actions')
+        th= t('views.fields.createdAt')
+        th= t('views.fields.actions')
     tbody
       if (users)
       each user in users
@@ -18,5 +18,5 @@ block content
           td= user.email
           td= formatDate(user.createdAt)
           td
-              a(href=route('editedUser', { id: user.id }))= t('views.users.index.edit')
-              +buttonTo(route('deleteUser', { id: user.id }), 'delete')(class="btn" value=t('views.users.index.delete'))
+              a(href=route('editedUser', { id: user.id }))= t('views.fields.edit')
+              +buttonTo(route('deleteUser', { id: user.id }), 'delete')(class="btn" value=t('views.fields.delete'))

@@ -1,0 +1,23 @@
+extends ../layouts/application.pug
+
+block content
+  table.table.caption-top.table-hover
+    caption
+    .text-dark.fs-4.fw-bold= t('layouts.application.statuses')
+      a(href=route('newStatus')).btn.btn-primary.bg-gradient.mx-2= t('views.submit.create')
+        thead
+          tr
+            th= t('views.fields.id')
+            th= t('views.fields.name')
+            th= t('views.fields.createdAt')
+            th= t('views.fields.actions')
+        tbody
+          if (taskStatuses)
+          each taskStatus in taskStatuses
+            tr
+              td= taskStatus.id
+              td= taskStatus.name
+              td= formatDate(taskStatus.createdAt)
+              td
+                a(href=route('editedStatus', { id: taskStatus.id }))= t('views.submit.edit')
+                +buttonTo(route('deleteStatus', { id: taskStatus.id }), 'delete')(class="btn" value=t('views.submit.delete'))

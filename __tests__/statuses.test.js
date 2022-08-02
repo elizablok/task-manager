@@ -1,10 +1,9 @@
-import _ from 'lodash';
 import fastify from 'fastify';
+
 import init from '../server/plugin.js';
-import encrypt from '../server/lib/secure.cjs';
 import { getTestData, prepareData, signIn } from './helpers/index.js';
 
-describe('test users CRUD', () => {
+describe('test statuses CRUD', () => {
   let app;
   let knex;
   let models;
@@ -27,7 +26,8 @@ describe('test users CRUD', () => {
   it('index', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: app.reverse('users'),
+      url: app.reverse('statuses'),
+      cookies,
     });
 
     expect(response.statusCode).toBe(200);
@@ -36,88 +36,88 @@ describe('test users CRUD', () => {
   it('new', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: app.reverse('newUser'),
+      url: app.reverse('newStatus'),
+      cookies,
+    });
+
+    expect(response.statusCode).toBe(200);
+  });
+
+  it('edited', async () => {
+    const taskStatus = await models.taskStatus
+      .query()
+      .findOne({ name: testData.statuses.existing.name });
+    const response = await app.inject({
+      method: 'GET',
+      url: app.reverse('editedStatus', { id: taskStatus.id }),
+      cookies,
     });
 
     expect(response.statusCode).toBe(200);
   });
 
   it('create', async () => {
-    const params = testData.users.new;
+    const params = testData.statuses.new;
+
     const response = await app.inject({
       method: 'POST',
-      url: app.reverse('postUser'),
+      url: app.reverse('createStatus'),
       payload: {
         data: params,
       },
-    });
-
-    expect(response.statusCode).toBe(302);
-    const expected = {
-      ..._.omit(params, 'password'),
-      passwordDigest: encrypt(params.password),
-    };
-    const user = await models.user
-      .query()
-      .findOne({ email: params.email });
-    expect(user).toMatchObject(expected);
-  });
-
-  it('edited', async () => {
-    const user = await models.user
-      .query()
-      .findOne({ email: testData.users.existing.email });
-    const response = await app.inject({
-      method: 'GET',
-      url: app.reverse('editedUser', { id: user.id }),
       cookies,
     });
 
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(302);
+    const taskStatus = await models.taskStatus
+      .query()
+      .findOne({ name: params.name });
+    expect(taskStatus).toMatchObject(params);
   });
 
-  it('edit', async () => {
-    const user = await models.user
+  it('patch', async () => {
+    const taskStatus = await models.taskStatus
       .query()
-      .findOne({ email: testData.users.existing.email });
-    const params = testData.users.new;
+      .findOne({ name: testData.statuses.existing.name });
+
+    const params = testData.statuses.new;
 
     const response = await app.inject({
       method: 'PATCH',
-      url: app.reverse('editUser', { id: user.id }),
+      url: app.reverse('updateStatus', { id: taskStatus.id }),
       payload: {
         data: params,
       },
       cookies,
     });
+
     expect(response.statusCode).toBe(302);
-    const expected = {
-      ..._.omit(params, 'password'),
-      passwordDigest: encrypt(params.password),
-    };
-    const updatedUser = await models.user
+    const updatedStatus = await models.taskStatus
       .query()
-      .findById(user.id);
-    expect(updatedUser).toMatchObject(expected);
+      .findById(taskStatus.id);
+    expect(updatedStatus).toMatchObject(params);
   });
 
   it('delete', async () => {
-    const user = await models.user
+    const taskStatus = await models.taskStatus
       .query()
-      .findOne({ email: testData.users.existing.email });
+      .findOne({ name: testData.statuses.existing.name });
+
     const response = await app.inject({
       method: 'DELETE',
-      url: app.reverse('deleteUser', { id: user.id }),
+      url: app.reverse('deleteStatus', { id: taskStatus.id }),
       cookies,
     });
 
     expect(response.statusCode).toBe(302);
-    const deletedUser = await models.user.query().findById(user.id);
-    expect(deletedUser).toBeUndefined();
+    const deletedStatus = await models.taskStatus
+      .query()
+      .findById(taskStatus.id);
+    expect(deletedStatus).toBeUndefined();
   });
 
   afterEach(async () => {
-    await knex('users').truncate();
+    await knex('statuses').truncate();
   });
 
   afterAll(async () => {

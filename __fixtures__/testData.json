@@ -24,5 +24,13 @@
       "email": "nona_murray",
       "password": "qwerty"
     }
+  },
+  "statuses": {
+    "new": {
+      "name": "Assigned"
+    },
+    "existing": {
+      "name": "Watched"
+    }
   }
 }

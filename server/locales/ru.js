@@ -31,6 +31,20 @@ export default {
         },
       },
       authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
+      statuses: {
+        create: {
+          failure: 'Не удалось создать статус',
+          success: 'Статус успешно создан',
+        },
+        update: {
+          success: 'Статус успешно обновлен',
+          failure: 'Не удалось обновить статус',
+        },
+        delete: {
+          success: 'Статус успешно удален',
+          failure: 'Вы не можете удалить данный статус',
+        },
+      },
     },
     layouts: {
       application: {
@@ -38,9 +52,22 @@ export default {
         signIn: 'Вход',
         signUp: 'Регистрация',
         signOut: 'Выход',
+        statuses: 'Статусы',
       },
     },
     views: {
+      fields: {
+        id: 'ID',
+        name: 'Имя',
+        createdAt: 'Дата создания',
+        actions: 'Действия',
+      },
+      submit: {
+        create: 'Создать',
+        save: 'Сохранить',
+        edit: 'Изменить',
+        delete: 'Удалить',
+      },
       session: {
         new: {
           title: 'Вход',
@@ -48,31 +75,29 @@ export default {
         },
       },
       users: {
-        id: 'ID',
         fullName: 'Полное имя',
-        firstName: 'Имя',
         lastName: 'Фамилия',
         password: 'Пароль',
         email: 'Email',
-        createdAt: 'Дата создания',
-        actions: 'Действия',
         new: {
           title: 'Регистрация',
-          submit: 'Сохранить',
-        },
-        index: {
-          edit: 'Изменить',
-          delete: 'Удалить',
         },
         edit: {
-          title: 'Редактирование',
-          submit: 'Обновить',
+          title: 'Редактирование пользователя',
         },
         errors: {
           firstName: 'Должно содержать минимум 1 символ',
           lastName: 'Должно содержать минимум 1 символ',
           email: 'Должно быть формата email',
           password: 'Должно содержать минимум 8 символов: минимум 1 заглавная, 1 маленькая буква и 1 специальный символ',
+        },
+      },
+      statuses: {
+        edit: {
+          title: 'Редактирование статуса',
+        },
+        new: {
+          title: 'Создание статуса',
         },
       },
       welcome: {
