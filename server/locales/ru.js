@@ -45,6 +45,20 @@ export default {
           failure: 'Вы не можете удалить данный статус',
         },
       },
+      tasks: {
+        create: {
+          failure: 'Не удалось создать задачу',
+          success: 'Задача успешно создана',
+        },
+        update: {
+          success: 'Задача успешно обновлена',
+          failure: 'Не удалось обновить задачу',
+        },
+        delete: {
+          success: 'Задача успешно удалена',
+          failure: 'Вы не можете удалить данную задачу',
+        },
+      },
     },
     layouts: {
       application: {
@@ -53,6 +67,7 @@ export default {
         signUp: 'Регистрация',
         signOut: 'Выход',
         statuses: 'Статусы',
+        tasks: 'Задачи',
       },
     },
     views: {
@@ -98,6 +113,24 @@ export default {
         },
         new: {
           title: 'Создание статуса',
+        },
+      },
+      tasks: {
+        status: 'Статус',
+        description: 'Описание',
+        executor: 'Исполнитель',
+        creator: 'Создатель',
+        options: 'Опции',
+        filter: {
+          isCreatorUser: 'По создателю',
+          submit: 'Отфильтровать',
+        },
+        new: {
+          create: 'Создать задачу',
+          title: 'Создание задачи',
+        },
+        edit: {
+          title: 'Обновление задачи',
         },
       },
       welcome: {

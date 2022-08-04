@@ -1,0 +1,43 @@
+extends ../layouts/application.pug
+
+block header
+  .fw-bold= t('layouts.application.tasks')
+    a(href=route('newTask')).btn.btn-primary.bg-gradient.mx-2= t('views.tasks.new.create')
+block content
+  .card.shadow-sm.bg-light.bg-gradient.rounded-3
+    .card-body.p-4
+      +formFor()(action=route('tasks') method='get')
+        .row
+          .col-12.col-md-4
+            +filter('status', t('views.tasks.status'), taskStatuses, filterOpts)
+          .col-12.col-md-4
+            +filter('executor', t('views.tasks.executor'), users, filterOpts)
+        +checkbox(task, 'isCreatorUser', t('views.tasks.filter.isCreatorUser'), filterOpts)
+        +submitSm(task)(value=t('views.tasks.filter.submit'))
+  table.table.caption-top.table-hover
+    caption
+      thead
+        tr
+          th= t('views.fields.id')
+          th= t('views.fields.name')
+          th= t('views.tasks.status')
+          th= t('views.tasks.creator')
+          th= t('views.tasks.executor')
+          th= t('views.fields.createdAt')
+          th= t('views.tasks.options')
+      tbody
+        each task in tasks
+          tr
+            td= task.id
+            td
+              a(href=route('task', { id: task.id }))= task.name
+            td= task.status.name
+            td= task.creator.name
+            td= _.get(task.executor, 'name')
+            td= formatDate(task.createdAt)
+            td
+              .d-inline-flex
+                a(href=route('editedTask', { id: task.id })).btn.btn-primary.bg-gradient.me-1= t('views.submit.edit')
+                +formFor()(action=route(`deleteTask`, { id: task.id }) method='post')
+                  input(name='_method', type='hidden', value='delete')
+                  input.btn.btn-danger.bg-gradient(type='submit', value= t('views.submit.delete'))

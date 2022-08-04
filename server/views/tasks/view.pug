@@ -1,0 +1,25 @@
+extends ../layouts/application.pug
+
+block content
+  .container.wrapper.flex-grow-1
+    h1.display-4.fw-bold.mt-4= task.name
+    .row.border.mt-5.p-5.shadow.bg-light.bg-gradient.rounded-3
+      .col-12.col-md-8.order-2.order-md-1
+        .lead.fw-normal.mb-4= task.description
+      .col-12.col-md-4.border-start.px-3.order-1.order-md-2.mb-3.mb-md-0
+        .mb-2
+          span.me-1.badge.bg-danger.bg-gradient.text-white= task.status.name
+        .d-flex.flex-wrap.mb-3
+          span.text-muted.me-2= t('views.tasks.creator')
+          span= task.creator.name
+        .d-flex.flex-wrap.mb-3
+          span.text-muted.me-2= t('views.tasks.executor')
+          span= task.executor.name
+        .d-flex.flex-wrap.mb-3
+          span.text-muted.me-2= t('views.fields.createdAt')
+          span= formatDate(task.createdAt)
+        .d-flex.flex-wrap
+          a(href=route('editedTask', { id: task.id })).btn.btn-primary.bg-gradient.me-1= t('views.submit.edit')
+          +formFor()(action=route(`deleteTask`, { id: task.id }) method='post')
+            input(name='_method', type='hidden', value='delete')
+            input.btn.btn-danger.bg-gradient(type='submit', value= t('views.submit.delete'))

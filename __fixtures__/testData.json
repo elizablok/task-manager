@@ -32,5 +32,21 @@
     "existing": {
       "name": "Watched"
     }
+  },
+  "tasks": {
+    "new": {
+      "name": "Provide data for tests",
+      "description": "Review script",
+      "statusId": 1,
+      "creatorId": 2,
+      "executorId": 3
+    },
+    "existing": {
+      "name": "Test",
+      "description": "Run test and check functionality",
+      "status_id": 1,
+      "creator_id": 2,
+      "executor_id": 2
+    }
   }
 }

@@ -1,4 +1,5 @@
 import i18next from 'i18next';
+import _ from 'lodash';
 
 export default (app) => {
   app
@@ -74,6 +75,15 @@ export default (app) => {
       return reply;
     })
     .delete('/statuses/:id', { name: 'deleteStatus', preValidation: app.authenticate }, async (req, reply) => {
+      const taskStatus = await app.objection.models.taskStatus
+        .query()
+        .findById(req.params.id);
+      const existingTasks = await taskStatus.$relatedQuery('tasks');
+
+      if (!_.isEmpty(existingTasks)) {
+        req.flash('error', i18next.t('flash.statuses.delete.failure'));
+        return reply.redirect(app.reverse('statuses'));
+      }
       try {
         await app.objection.models.taskStatus.query().deleteById(req.params.id);
         req.flash('info', i18next.t('flash.statuses.delete.success'));
