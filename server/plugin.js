@@ -13,8 +13,8 @@ import fastifyObjectionjs from 'fastify-objectionjs';
 import qs from 'qs';
 import Pug from 'pug';
 import i18next from 'i18next';
+import Rollbar from 'rollbar';
 import ru from './locales/ru.js';
-// @ts-ignore
 
 import addRoutes from './routes/index.js';
 import getHelpers from './helpers/index.js';
@@ -108,8 +108,22 @@ const registerPlugins = (app) => {
   });
 };
 
+const rollbar = new Rollbar({
+  accessToken: process.env.ROLLBAR_KEY,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+});
+
+const setupErrorHandler = (app) => {
+  app.setErrorHandler(async (err, req, reply) => {
+    rollbar.error(err, req);
+    reply.send(err);
+  });
+};
+
 // eslint-disable-next-line no-unused-vars
 export default async (app, options) => {
+  setupErrorHandler(app);
   registerPlugins(app);
   await setupLocalization();
   setUpViews(app);

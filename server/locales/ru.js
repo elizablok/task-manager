@@ -151,7 +151,7 @@ export default {
       },
       labels: {
         new: {
-          title: 'Создание метки'
+          title: 'Создание метки',
         },
         edit: {
           title: 'Редактирование метки',

@@ -77,10 +77,10 @@ export default (app) => {
     .delete('/statuses/:id', { name: 'deleteStatus', preValidation: app.authenticate }, async (req, reply) => {
       const deletedTaskStatusId = req.params.id;
       const tasksInStatus = await app.objection.models.task.query().where('statusId', deletedTaskStatusId);
-  
+
       if (!_.isEmpty(tasksInStatus)) {
-        req.flash('error', i18next.t('flash.users.delete.failure'));
-        return reply.redirect(app.reverse('users'));
+        req.flash('error', i18next.t('flash.statuses.delete.failure'));
+        return reply.redirect(app.reverse('statuses'));
       }
 
       try {

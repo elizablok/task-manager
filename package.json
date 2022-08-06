@@ -59,11 +59,11 @@
     "point-of-view": "^5.2.0",
     "pug": "^3.0.2",
     "qs": "^6.10.3",
-    "rollbar": "^2.24.1",
+    "rollbar": "^2.25.1",
     "sqlite3": "^5.0.2",
     "webpack": "^5.72.0"
- },
- "devDependencies": {
+  },
+  "devDependencies": {
     "@jest/globals": "^27.5.1",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.23",
@@ -80,5 +80,5 @@
     "pino-pretty": "^7.6.1",
     "style-loader": "^3.3.1",
     "webpack-cli": "^4.9.2"
- }
+  }
 }
