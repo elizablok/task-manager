@@ -8,5 +8,6 @@ block content
 				+input(task, 'name', t('views.fields.name'), errors)(type='text')
 				+textarea(task, 'description', t('views.tasks.description'), errors)(type='text')
 				+select(task, 'statusId', t('views.tasks.status'), errors, taskStatuses)
+				+select(task, 'labels', t('views.tasks.labels'), errors, labels)(multiple="multiple")
 				+select(task, 'executorId', t('views.tasks.executor'), errors, users)
 				+submitSm(task)(value=t('views.submit.save'))

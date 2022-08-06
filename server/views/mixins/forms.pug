@@ -70,9 +70,9 @@ mixin select(entity, propertyName, placeholder, errors = {}, options = {})
     )&attributes(attributes)
       if !attributes.multiple
         option
-      - selectedOptions = entity[propertyName] ? [entity[propertyName]].flat().map(Number) : []
+      - selectOptions = entity[propertyName] ? [entity[propertyName]].flat().map(Number) : []
       each option in options
-        - isSelected = _.includes(selectedOptions, option.id)
+        - isSelected = _.includes(selectOptions, option.id)
         option(value= option.id selected= isSelected)= option.name
     if !_.isEmpty(propertyErrors)
       .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')

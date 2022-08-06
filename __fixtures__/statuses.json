@@ -1,14 +1,17 @@
 [
-    {
-      "name": "In Progress"
-    },
-    {
-      "name": "In Testing"
-    },
-    {
-      "name": "Completed"
-    },
-    {
-      "name": "Watched"
-    }
+  {
+    "name": "new status"
+  },
+  {
+    "name": "task in dev"
+  },
+  {
+    "name": "task in testing"
+  },
+  {
+    "name": "task is closed"
+  },
+  {
+    "name": "status without tasks"
+  }
 ]

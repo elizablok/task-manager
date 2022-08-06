@@ -1,6 +1,5 @@
-// @ts-check
-
 import i18next from 'i18next';
+import _ from 'lodash';
 
 export default (app) => {
   app
@@ -57,6 +56,14 @@ export default (app) => {
     })
     .delete('/users/:id', { name: 'deleteUser', preValidation: app.authenticate }, async (req, reply) => {
       const deleteUserId = req.params.id;
+      const createdTasks = await app.objection.models.task.query().where('creatorId', deleteUserId);
+      const assignedTasks = await app.objection.models.task.query().where('executorId', deleteUserId);
+
+      if (!_.isEmpty(createdTasks) && !_.isEmpty(assignedTasks)) {
+        req.flash('error', i18next.t('flash.users.delete.failure'));
+        return reply.redirect(app.reverse('users'));
+      }
+
       if (Number(deleteUserId) !== Number(req.user.id)) {
         req.flash('error', i18next.t('flash.users.delete.failure'));
         reply.redirect(app.reverse('users'));

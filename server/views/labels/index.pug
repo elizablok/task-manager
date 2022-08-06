@@ -1,0 +1,24 @@
+extends ../layouts/application.pug
+
+block content
+  table.table.caption-top.table-hover
+    caption
+    .text-dark.fs-4.fw-bold= t('layouts.application.labels')
+      a(href=route('newLabel')).btn.btn-primary.bg-gradient.mx-2= t('views.submit.create')
+        thead
+          tr
+            th= t('views.fields.id')
+            th= t('views.fields.name')
+            th= t('views.fields.createdAt')
+            th= t('views.fields.actions')
+        tbody
+          if (labels)
+          each label in labels
+            tr
+              td= label.id
+              td= label.name
+              td= formatDate(label.createdAt)
+              td
+                .d-inline-flex
+                  a(href=route('editedLabel', { id: label.id })).btn.btn-primary.bg-gradient.me-1= t('views.submit.edit')
+                  +buttonTo(route('deleteLabel', { id: label.id }), 'delete')(class="btn" value=t('views.submit.delete')).btn.btn-danger.bg-gradient

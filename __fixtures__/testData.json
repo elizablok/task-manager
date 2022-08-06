@@ -11,42 +11,58 @@
       "lastName": "Kulas",
       "email": "lawrence.kulas87@outlook.com",
       "password": "*O6AvLIQL1cbzrre"
-    },
-    "wrongExisting": {
-      "firstName": "Nona",
-      "lastName": "Murray",
-      "email": "nona_murray@yahoo.com",
-      "password": "!DOW2DUsko3st"
-    },
-    "wrongNew": {
-      "firstName": "",
-      "lastName": "",
-      "email": "nona_murray",
-      "password": "qwerty"
     }
   },
   "statuses": {
     "new": {
-      "name": "Assigned"
+      "name": "very new status"
     },
     "existing": {
-      "name": "Watched"
+      "name": "new status"
+    },
+    "updated": {
+      "name": "new status updated"
+    },
+    "existingEmpty": {
+      "name": "status without tasks"
     }
   },
   "tasks": {
     "new": {
-      "name": "Provide data for tests",
-      "description": "Review script",
+      "name": "this is a new task",
+      "description": "some description",
       "statusId": 1,
-      "creatorId": 2,
-      "executorId": 3
+      "executorId": 1,
+      "labels": [1, 2]
     },
     "existing": {
-      "name": "Test",
-      "description": "Run test and check functionality",
-      "status_id": 1,
-      "creator_id": 2,
-      "executor_id": 2
+      "name": "finish the project",
+      "description": "4 steps left",
+      "statusId": 2,
+      "creatorId": 2,
+      "executorId": 1,
+      "labels": [3]
+    },
+    "updated": {
+      "name": "finish the project ASAP!!!",
+      "description": "4 steps left",
+      "statusId": 1,
+      "executorId": 1,
+      "labels": [1, 2, 3]
+    }
+  },
+  "labels": {
+    "new": {
+      "name": "this is a new label"
+    },
+    "existing": {
+      "name": "old label"
+    },
+    "updated": {
+      "name": "old label upd"
+    },
+    "existingEmpty": {
+      "name": "label without tasks"
     }
   }
 }

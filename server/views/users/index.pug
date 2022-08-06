@@ -1,15 +1,17 @@
 extends ../layouts/application.pug
 
 block content
-  table.table.table-striped
-    thead
-      tr
-        th= t('views.fields.id')
-        th= t('views.users.fullName')
-        th= t('views.users.email')
-        th= t('views.fields.createdAt')
-        th= t('views.fields.actions')
-    tbody
+  table.table.caption-top.table-hover
+    caption
+    .text-dark.fs-4.fw-bold= t('layouts.application.users')
+      thead
+        tr
+          th= t('views.fields.id')
+          th= t('views.users.fullName')
+          th= t('views.users.email')
+          th= t('views.fields.createdAt')
+          th= t('views.fields.actions')
+      tbody
       if (users)
       each user in users
         tr
@@ -17,6 +19,8 @@ block content
           td= user.name
           td= user.email
           td= formatDate(user.createdAt)
-          td
-              a(href=route('editedUser', { id: user.id }))= t('views.fields.edit')
-              +buttonTo(route('deleteUser', { id: user.id }), 'delete')(class="btn" value=t('views.fields.delete'))
+          if isAuthenticated()
+            td
+              .d-inline-flex
+                a(href=route('editedUser', { id: user.id })).btn.btn-primary.bg-gradient.me-1= t('views.submit.edit')
+                +buttonTo(route('deleteUser', { id: user.id }), 'delete')(class="btn" value=t('views.submit.delete')).btn.btn-danger.bg-gradient

@@ -19,5 +19,6 @@ block content
               td= taskStatus.name
               td= formatDate(taskStatus.createdAt)
               td
-                a(href=route('editedStatus', { id: taskStatus.id }))= t('views.submit.edit')
-                +buttonTo(route('deleteStatus', { id: taskStatus.id }), 'delete')(class="btn" value=t('views.submit.delete'))
+                .d-inline-flex
+                  a(href=route('editedStatus', { id: taskStatus.id })).btn.btn-primary.bg-gradient.me-1= t('views.submit.edit')
+                  +buttonTo(route('deleteStatus', { id: taskStatus.id }), 'delete')(class="btn" value=t('views.submit.delete')).btn.btn-danger.bg-gradient

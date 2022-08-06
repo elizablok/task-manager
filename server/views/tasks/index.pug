@@ -11,6 +11,8 @@ block content
           .col-12.col-md-4
             +filter('status', t('views.tasks.status'), taskStatuses, filterOpts)
           .col-12.col-md-4
+            +filter('label', t('views.tasks.labels'), labels, filterOpts)
+          .col-12.col-md-4
             +filter('executor', t('views.tasks.executor'), users, filterOpts)
         +checkbox(task, 'isCreatorUser', t('views.tasks.filter.isCreatorUser'), filterOpts)
         +submitSm(task)(value=t('views.tasks.filter.submit'))
@@ -38,6 +40,4 @@ block content
             td
               .d-inline-flex
                 a(href=route('editedTask', { id: task.id })).btn.btn-primary.bg-gradient.me-1= t('views.submit.edit')
-                +formFor()(action=route(`deleteTask`, { id: task.id }) method='post')
-                  input(name='_method', type='hidden', value='delete')
-                  input.btn.btn-danger.bg-gradient(type='submit', value= t('views.submit.delete'))
+                +buttonTo(route('deleteTask', { id: task.id }), 'delete')(class="btn" value=t('views.submit.delete')).btn.btn-danger.bg-gradient

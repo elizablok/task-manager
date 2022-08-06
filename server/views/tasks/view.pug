@@ -9,6 +9,8 @@ block content
       .col-12.col-md-4.border-start.px-3.order-1.order-md-2.mb-3.mb-md-0
         .mb-2
           span.me-1.badge.bg-danger.bg-gradient.text-white= task.status.name
+          each label in task.labels
+            span.me-1.badge.bg-info.bg-gradient.text-white=label.name
         .d-flex.flex-wrap.mb-3
           span.text-muted.me-2= t('views.tasks.creator')
           span= task.creator.name
@@ -20,6 +22,4 @@ block content
           span= formatDate(task.createdAt)
         .d-flex.flex-wrap
           a(href=route('editedTask', { id: task.id })).btn.btn-primary.bg-gradient.me-1= t('views.submit.edit')
-          +formFor()(action=route(`deleteTask`, { id: task.id }) method='post')
-            input(name='_method', type='hidden', value='delete')
-            input.btn.btn-danger.bg-gradient(type='submit', value= t('views.submit.delete'))
+          +buttonTo(route('deleteTask', { id: task.id }), 'delete')(class="btn" value=t('views.submit.delete')).btn.btn-danger.bg-gradient

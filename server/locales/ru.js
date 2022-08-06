@@ -59,6 +59,20 @@ export default {
           failure: 'Вы не можете удалить данную задачу',
         },
       },
+      labels: {
+        create: {
+          failure: 'Не удалось создать метку',
+          success: 'Метка успешно создана',
+        },
+        update: {
+          success: 'Метка успешно обновлена',
+          failure: 'Не удалось обновить метку',
+        },
+        delete: {
+          success: 'Метка успешно удалена',
+          failure: 'Вы не можете удалить данную метку',
+        },
+      },
     },
     layouts: {
       application: {
@@ -68,6 +82,7 @@ export default {
         signOut: 'Выход',
         statuses: 'Статусы',
         tasks: 'Задачи',
+        labels: 'Метки',
       },
     },
     views: {
@@ -117,6 +132,7 @@ export default {
       },
       tasks: {
         status: 'Статус',
+        labels: 'Метки',
         description: 'Описание',
         executor: 'Исполнитель',
         creator: 'Создатель',
@@ -130,7 +146,15 @@ export default {
           title: 'Создание задачи',
         },
         edit: {
-          title: 'Обновление задачи',
+          title: 'Редактировние задачи',
+        },
+      },
+      labels: {
+        new: {
+          title: 'Создание метки'
+        },
+        edit: {
+          title: 'Редактирование метки',
         },
       },
       welcome: {

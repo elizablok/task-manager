@@ -111,7 +111,6 @@ const registerPlugins = (app) => {
 // eslint-disable-next-line no-unused-vars
 export default async (app, options) => {
   registerPlugins(app);
-
   await setupLocalization();
   setUpViews(app);
   setUpStaticAssets(app);
