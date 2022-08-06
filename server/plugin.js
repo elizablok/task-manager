@@ -114,6 +114,8 @@ const rollbar = new Rollbar({
   captureUnhandledRejections: true,
 });
 
+rollbar.log('Hello world!');
+
 const setupErrorHandler = (app) => {
   app.setErrorHandler(async (err, req, reply) => {
     rollbar.error(err, req);
