@@ -1,6 +1,6 @@
 - const getInputName = (property) => `data[${property}]`
 - const getInputId = (property) => `data_${property}`
-- const mappingMessage = { name: 'should have at a minimum 1 character', firstName: 'should have at a minimum 1 character', lastName: 'should have at a minimum 1 character', password: 'should have at a minimum 8 characters: at least 1 special symbol, 1 digit, 1 lowercase and 1 uppercase letter', email: 'should be an email format', };
+- const mappingMessage = { name: 'should have at a minimum 1 character', firstName: 'should have at a minimum 1 character', lastName: 'should have at a minimum 1 character', password: 'should have at a minimum 1 character', email: 'should be an email format', };
 
 mixin formFor(entity = null)
   form&attributes(attributes)
