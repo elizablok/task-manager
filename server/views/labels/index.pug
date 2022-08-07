@@ -1,10 +1,11 @@
 extends ../layouts/application.pug
 
+block header
+  .fw-bold= t('layouts.application.labels')
+  a(href=route('newLabel')).btn.btn-primary.bg-gradient.mx-2= t('views.submit.create')
 block content
   table.table.caption-top.table-hover
     caption
-    .text-dark.fs-4.fw-bold= t('layouts.application.labels')
-      a(href=route('newLabel')).btn.btn-primary.bg-gradient.mx-2= t('views.submit.create')
         thead
           tr
             th= t('views.fields.id')

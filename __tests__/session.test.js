@@ -35,9 +35,6 @@ describe('test session', () => {
     });
 
     expect(responseSignIn.statusCode).toBe(302);
-    // после успешной аутентификации получаем куки из ответа,
-    // они понадобятся для выполнения запросов на маршруты требующие
-    // предварительную аутентификацию
     const [sessionCookie] = responseSignIn.cookies;
     const { name, value } = sessionCookie;
     const cookie = { [name]: value };
@@ -45,7 +42,6 @@ describe('test session', () => {
     const responseSignOut = await app.inject({
       method: 'DELETE',
       url: app.reverse('session'),
-      // используем полученные ранее куки
       cookies: cookie,
     });
 
@@ -53,7 +49,6 @@ describe('test session', () => {
   });
 
   afterAll(async () => {
-    // await knex.migrate.rollback();
     await app.close();
   });
 });

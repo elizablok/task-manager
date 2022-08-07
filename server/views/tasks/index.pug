@@ -2,7 +2,7 @@ extends ../layouts/application.pug
 
 block header
   .fw-bold= t('layouts.application.tasks')
-    a(href=route('newTask')).btn.btn-primary.bg-gradient.mx-2= t('views.tasks.new.create')
+  a(href=route('newTask')).btn.btn-primary.bg-gradient.mx-2= t('views.tasks.new.create')
 block content
   .card.shadow-sm.bg-light.bg-gradient.rounded-3
     .card-body.p-4
