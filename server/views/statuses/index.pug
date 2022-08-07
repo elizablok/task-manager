@@ -2,7 +2,7 @@ extends ../layouts/application.pug
 
 block header
   .fw-bold= t('layouts.application.statuses')
-  a(href=route('newStatus')).btn.btn-primary.bg-gradient.mx-2= t('views.submit.create')
+  a(href=route('newStatus')).btn.btn-primary.bg-gradient.mx-2= t('views.statuses.index.create')
 block content
   table.table.caption-top.table-hover
     caption

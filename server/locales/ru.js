@@ -113,7 +113,7 @@ export default {
           title: 'Регистрация',
         },
         edit: {
-          title: 'Редактирование пользователя',
+          title: 'Изменение пользователя',
         },
         errors: {
           firstName: 'Должно содержать минимум 1 символ',
@@ -123,8 +123,11 @@ export default {
         },
       },
       statuses: {
+        index: {
+          create: 'Создать статус',
+        },
         edit: {
-          title: 'Редактирование статуса',
+          title: 'Изменение статуса',
         },
         new: {
           title: 'Создание статуса',
@@ -138,23 +141,28 @@ export default {
         creator: 'Создатель',
         options: 'Опции',
         filter: {
-          isCreatorUser: 'По создателю',
-          submit: 'Отфильтровать',
+          isCreatorUser: 'Только мои задачи',
+          submit: 'Показать',
+        },
+        index: {
+          create: 'Создать задачу',
         },
         new: {
-          create: 'Создать задачу',
           title: 'Создание задачи',
         },
         edit: {
-          title: 'Редактировние задачи',
+          title: 'Изменение задачи',
         },
       },
       labels: {
+        index: {
+          create: 'Создать метку',
+        },
         new: {
           title: 'Создание метки',
         },
         edit: {
-          title: 'Редактирование метки',
+          title: 'Изменение метки',
         },
       },
       welcome: {

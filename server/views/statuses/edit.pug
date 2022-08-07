@@ -7,4 +7,4 @@ block content
   form(action=route('updateStatus', { id: taskStatus.id }) method='post')
     +input(taskStatus, 'name', t('views.fields.name'), errors)(type="text")
     input(name="_method" type="hidden" value='patch')
-    +submit(taskStatus)(value=t('views.submit.save'))
+    +submit(taskStatus)(value=t('views.submit.edit'))

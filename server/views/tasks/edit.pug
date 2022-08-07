@@ -11,4 +11,4 @@ block content
 				+select(task, 'labels', t('views.tasks.labels'), errors, labels)(multiple="multiple")
 				+select(task, 'executorId', t('views.tasks.executor'), errors, users)
 				input(name="_method" type="hidden" value='patch')
-				+submitSm(taskStatus)(value=t('views.submit.save'))
+				+submitSm(taskStatus)(value=t('views.submit.edit'))
