@@ -107,7 +107,7 @@ export default (app) => {
           app.objection.models.user.query(),
         ]);
 
-        req.flash('error', i18next.t('flash.tasks.create.failure'));
+        req.flash('error', i18next.t('flash.tasks.create.error'));
         reply.render('tasks/new', {
           task: req.body.data, errors: data, taskStatuses, labels, users,
         });
@@ -177,7 +177,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.tasks.delete.success'));
         return reply.redirect(app.reverse('tasks'));
       } catch ({ data }) {
-        req.flash('error', i18next.t('flash.tasks.delete.failure'));
+        req.flash('error', i18next.t('flash.tasks.delete.error'));
         return reply.redirect(app.reverse('tasks'));
       }
     });

@@ -54,7 +54,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.labels.create.success'));
         reply.redirect(app.reverse('labels'));
       } catch ({ data }) {
-        req.flash('error', i18next.t('flash.labels.create.failure'));
+        req.flash('error', i18next.t('flash.labels.create.error'));
         reply.render('labels/new', { label, errors: data });
       }
 
@@ -69,7 +69,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.labels.update.success'));
         return reply.redirect(app.reverse('labels'));
       } catch ({ data }) {
-        req.flash('error', i18next.t('flash.labels.update.failure'));
+        req.flash('error', i18next.t('flash.labels.update.error'));
         reply.render('labels/edit', { label, errors: data });
       }
       return reply;
@@ -79,7 +79,7 @@ export default (app) => {
       const existingTasks = await app.objection.models.label.relatedQuery('tasks').for(deletedLabelId);
 
       if (!_.isEmpty(existingTasks)) {
-        req.flash('error', i18next.t('flash.labels.delete.failure'));
+        req.flash('error', i18next.t('flash.labels.delete.error'));
         return reply.redirect(app.reverse('labels'));
       }
       try {
@@ -87,7 +87,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.labels.delete.success'));
         return reply.redirect(app.reverse('labels'));
       } catch ({ data }) {
-        req.flash('error', i18next.t('flash.labels.delete.failure'));
+        req.flash('error', i18next.t('flash.labels.delete.error'));
         return reply.redirect(app.reverse('labels'));
       }
     });

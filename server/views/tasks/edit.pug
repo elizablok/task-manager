@@ -5,7 +5,7 @@ block content
 		.form-control.shadow-sm.bg-light.bg-gradient.rounded-3.w-50
 			h1.h3.my-3.fw-bold= t('views.tasks.edit.title')
 			+formFor()(action=route('updateTask', { id: task.id }) method='post')
-				+input(task, 'name', t('views.fields.name'), errors)(type='text')
+				+input(task, 'name', t('views.fields.itemName'), errors)(type='text')
 				+textarea(task, 'description', t('views.tasks.description'), errors)(type='text')
 				+select(task, 'statusId', t('views.tasks.status'), errors, taskStatuses)
 				+select(task, 'labels', t('views.tasks.labels'), errors, labels)(multiple="multiple")

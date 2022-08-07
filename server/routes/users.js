@@ -15,7 +15,7 @@ export default (app) => {
     .get('/users/:id/edit', { name: 'editedUser', preValidation: app.authenticate }, async (req, reply) => {
       const editUserId = req.params.id;
       if (Number(editUserId) !== Number(req.user.id)) {
-        req.flash('error', i18next.t('flash.users.edit.failure'));
+        req.flash('error', i18next.t('flash.users.update.failure'));
         return reply.redirect(app.reverse('users'));
       }
       const user = await app.objection.models.user.query().findById(editUserId);
@@ -31,7 +31,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.users.create.success'));
         reply.redirect(app.reverse('root'));
       } catch ({ data }) {
-        req.flash('error', i18next.t('flash.users.create.failure'));
+        req.flash('error', i18next.t('flash.users.create.error'));
         reply.render('users/new', { user, errors: data });
       }
 
@@ -49,7 +49,7 @@ export default (app) => {
         return reply.redirect(app.reverse('users'));
       } catch ({ data }) {
         user.$set(req.body.data);
-        req.flash('error', i18next.t('flash.users.update.failure'));
+        req.flash('error', i18next.t('flash.users.update.error'));
         reply.render('users/edit', { user, errors: data });
       }
       return reply;
@@ -60,7 +60,7 @@ export default (app) => {
       const assignedTasks = await app.objection.models.task.query().where('executorId', deleteUserId);
 
       if (!_.isEmpty(createdTasks) && !_.isEmpty(assignedTasks)) {
-        req.flash('error', i18next.t('flash.users.delete.failure'));
+        req.flash('error', i18next.t('flash.users.delete.error'));
         return reply.redirect(app.reverse('users'));
       }
 
@@ -76,7 +76,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.users.delete.success'));
         return reply.redirect(app.reverse('users'));
       } catch (e) {
-        req.flash('error', i18next.t('flash.users.delete.failure'));
+        req.flash('error', i18next.t('flash.users.delete.error'));
         reply.redirect(app.reverse('users'));
         return reply;
       }

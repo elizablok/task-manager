@@ -54,7 +54,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.statuses.create.success'));
         reply.redirect(app.reverse('statuses'));
       } catch ({ data }) {
-        req.flash('error', i18next.t('flash.statuses.create.failure'));
+        req.flash('error', i18next.t('flash.statuses.create.error'));
         reply.render('statuses/new', { taskStatus, errors: data });
       }
 
@@ -69,7 +69,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.statuses.update.success'));
         return reply.redirect(app.reverse('statuses'));
       } catch ({ data }) {
-        req.flash('error', i18next.t('flash.statuses.update.failure'));
+        req.flash('error', i18next.t('flash.statuses.update.error'));
         reply.render('statuses/edit', { taskStatus, errors: data });
       }
       return reply;
@@ -79,7 +79,7 @@ export default (app) => {
       const tasksInStatus = await app.objection.models.task.query().where('statusId', deletedTaskStatusId);
 
       if (!_.isEmpty(tasksInStatus)) {
-        req.flash('error', i18next.t('flash.statuses.delete.failure'));
+        req.flash('error', i18next.t('flash.statuses.delete.error'));
         return reply.redirect(app.reverse('statuses'));
       }
 
@@ -88,7 +88,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.statuses.delete.success'));
         return reply.redirect(app.reverse('statuses'));
       } catch ({ data }) {
-        req.flash('error', i18next.t('flash.statuses.delete.failure'));
+        req.flash('error', i18next.t('flash.statuses.delete.error'));
         return reply.redirect(app.reverse('statuses'));
       }
     });
