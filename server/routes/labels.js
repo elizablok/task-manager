@@ -20,6 +20,7 @@ export default (app) => {
         .models
         .label();
       reply.render('labels/new', { label });
+      return reply;
     })
     .get('/labels/:id/edit', { name: 'editedLabel', preValidation: app.authenticate }, async (req, reply) => {
       const label = await app

@@ -20,6 +20,7 @@ export default (app) => {
         .models
         .taskStatus();
       reply.render('statuses/new', { taskStatus });
+      return reply;
     })
     .get('/statuses/:id/edit', { name: 'editedStatus', preValidation: app.authenticate }, async (req, reply) => {
       const taskStatus = await app
