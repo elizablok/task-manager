@@ -24,17 +24,25 @@ export default (app) => {
     })
     .post('/users', { name: 'postUser' }, async (req, reply) => {
       const user = new app.objection.models.user();
-      user.$set(req.body.data);
+      const pureData = _.omit(req.body.data, ['confirmPassword']);
+      user.$set(pureData);
       try {
-        const validUser = await app.objection.models.user.fromJson(req.body.data);
+        const validUser = await app.objection.models.user.fromJson(pureData);
         await app.objection.models.user.query().insert(validUser);
         req.flash('info', i18next.t('flash.users.create.success'));
         reply.redirect(app.reverse('root'));
       } catch ({ data }) {
+        const { confirmPassword } = req.body.data;
+        const newUser = { ...user, confirmPassword };
+        if (user.password !== confirmPassword) {
+          const confirmPasswordData = { message: 'views.users.password.passwordsShouldMatch' };
+          const passwordData = data.password
+            ? [...data.password, confirmPasswordData] : confirmPasswordData;
+          data.password = passwordData;
+        }
         req.flash('error', i18next.t('flash.users.create.error'));
-        reply.render('users/new', { user, errors: data });
+        reply.render('users/new', { user: newUser, errors: data });
       }
-
       return reply;
     })
     .patch('/users/:id', { name: 'editUser', preValidation: app.authenticate }, async (req, reply) => {

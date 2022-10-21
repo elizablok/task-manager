@@ -4,6 +4,7 @@ export default {
   translation: {
     appName: 'Task manager',
     flash: {
+      authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
       session: {
         create: {
           success: 'Вы залогинены',
@@ -108,6 +109,7 @@ export default {
         fullName: 'Полное имя',
         lastName: 'Фамилия',
         password: 'Пароль',
+        confirmPassword: 'Подтвердите пароль',
         email: 'Email',
         new: {
           title: 'Регистрация',
@@ -116,10 +118,18 @@ export default {
           title: 'Изменение пользователя',
         },
         errors: {
-          firstName: 'Должно содержать минимум 1 символ',
-          lastName: 'Должно содержать минимум 1 символ',
-          email: 'Должно быть формата email',
-          password: 'Должно содержать минимум 8 символов: минимум 1 заглавная, 1 маленькая буква и 1 специальный символ',
+          firstName: {
+            minLength: 'Должно содержать минимум 1 символ',
+          },
+          lastName: {
+            minLength: 'Должно содержать минимум 1 символ',
+          },
+          email: {
+            pattern: 'Должно быть формата email',
+          },
+          password: {
+            minLength: 'Должно содержать минимум 1 символ',
+          },
         },
       },
       statuses: {
@@ -131,6 +141,11 @@ export default {
         },
         new: {
           title: 'Создание статуса',
+        },
+        errors: {
+          name: {
+            minLength: 'Должно содержать минимум 1 символ',
+          },
         },
       },
       tasks: {
@@ -153,6 +168,14 @@ export default {
         edit: {
           title: 'Изменение задачи',
         },
+        errors: {
+          name: {
+            minLength: 'Должно содержать минимум 1 символ',
+          },
+          statusId: {
+            minimum: 'Обязательно',
+          },
+        },
       },
       labels: {
         index: {
@@ -163,6 +186,11 @@ export default {
         },
         edit: {
           title: 'Изменение метки',
+        },
+        errors: {
+          name: {
+            minLength: 'Должно содержать минимум 1 символ',
+          },
         },
       },
       welcome: {

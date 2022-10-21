@@ -84,7 +84,6 @@ const registerPlugins = (app) => {
       path: '/',
     },
   });
-
   fastifyPassport.registerUserDeserializer(
     (user) => app.objection.models.user.query().findById(user.id),
   );
@@ -124,8 +123,8 @@ const setupErrorHandler = (app) => {
 // eslint-disable-next-line no-unused-vars
 export default async (app, options) => {
   setupErrorHandler(app);
-  registerPlugins(app);
   await setupLocalization();
+  registerPlugins(app);
   setUpViews(app);
   setUpStaticAssets(app);
   addRoutes(app);

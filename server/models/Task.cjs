@@ -1,4 +1,7 @@
+const _ = require('lodash');
+const { ValidationError } = require('objection');
 const BaseModel = require('./BaseModel.cjs');
+const { getCustomData, getMessage } = require('./errorGetters.cjs');
 
 module.exports = class Task extends BaseModel {
   static get tableName() {
@@ -18,6 +21,28 @@ module.exports = class Task extends BaseModel {
         executorId: { type: ['integer', 'null'] },
       },
     };
+  }
+
+  static createValidationError({ type, data }) {
+    const fields = Object.keys(data);
+    const message = getMessage(data, fields);
+    return new ValidationError({
+      type, message, data: getCustomData('tasks', data, fields), modelClass: this,
+    });
+  }
+
+  $parseJson(json, opt) {
+    json = super.$parseJson(json, opt);
+    const newJson = {
+      id: opt.id ? Number(opt.id) : null,
+      name: json.name,
+      description: json.description,
+      creatorId: Number(opt.creatorId),
+      statusId: Number(json.statusId),
+      executorId: !json.executorId ? null : Number(json.executorId),
+      labels: opt.labels ?? null,
+    };
+    return !newJson.id ? _.omit(newJson, ['id']) : newJson;
   }
 
   static get relationMappings() {

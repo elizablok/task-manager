@@ -76,20 +76,15 @@ export default (app) => {
       reply.render('tasks/edit', {
         task, taskStatuses, labels, users,
       });
+      return reply;
     })
     .post('/tasks', { name: 'createTask', preValidation: app.authenticate }, async (req, reply) => {
       const labelsIds = _.toArray(_.get(req.body.data, 'labels', []));
       const currentLabels = await app.objection.models.label
         .query()
         .findByIds(labelsIds);
-      const taskData = {
-        name: req.body.data.name,
-        description: req.body.data.description,
-        creatorId: Number(req.user.id),
-        statusId: Number(req.body.data.statusId),
-        executorId: !req.body.data.executorId ? null : Number(req.body.data.executorId),
-        labels: currentLabels,
-      };
+      const opt = { labels: currentLabels, creatorId: req.user.id };
+      const taskData = await app.objection.models.task.fromJson(req.body.data, opt);
 
       try {
         await app.objection.models.task.transaction(async (trx) => {
@@ -116,29 +111,23 @@ export default (app) => {
       return reply;
     })
     .patch('/tasks/:id', { name: 'updateTask', preValidation: app.authenticate }, async (req, reply) => {
-      const labelIds = _.toArray(_.get(req.body.data, 'labels', []));
       const task = await app.objection.models.task
         .query()
         .findById(req.params.id);
-
-      const taskData = {
-        id: Number(req.params.id),
-        name: req.body.data.name,
-        description: req.body.data.description,
-        creatorId: Number(req.user.id),
-        statusId: Number(req.body.data.statusId),
-        executorId: !req.body.data.executorId ? null : Number(req.body.data.executorId),
-        labels: labelIds.map((labelId) => ({ id: labelId })),
+      const labelsIds = _.toArray(_.get(req.body.data, 'labels', [])).map((id) => Number(id));
+      const opt = {
+        id: req.params.id,
+        creatorId: req.user.id,
+        labels: labelsIds,
       };
+
+      const taskData = await app.objection.models.task.fromJson(req.body.data, opt);
 
       try {
         await app.objection.models.task.transaction(async (trx) => {
-          const updatedTask = await app.objection.models.task
-            .query(trx)
-            .upsertGraph(taskData, {
-              relate: true, unrelate: true, noDelete: true,
-            });
-          return updatedTask;
+          await task.$query(trx).patch(taskData);
+          await task.$relatedQuery('labels', trx).unrelate();
+          await Promise.all(labelsIds.map((id) => task.$relatedQuery('labels', trx).relate(id)));
         });
         req.flash('info', i18next.t('flash.tasks.update.success'));
         reply.redirect(app.reverse('tasks'));

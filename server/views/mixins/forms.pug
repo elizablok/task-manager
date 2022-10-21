@@ -1,6 +1,5 @@
 - const getInputName = (property) => `data[${property}]`
 - const getInputId = (property) => `data_${property}`
-- const mappingMessage = { name: 'should have at a minimum 1 character', firstName: 'should have at a minimum 1 character', lastName: 'should have at a minimum 1 character', password: 'should have at a minimum 1 character', email: 'should be an email format', };
 
 mixin formFor(entity = null)
   form&attributes(attributes)
@@ -22,10 +21,7 @@ mixin input(entity, propertyName, placeholder, errors = {})
       for= inputId
     )= placeholder
     if !_.isEmpty(propertyErrors)
-      if mappingMessage[propertyName]
-        .invalid-feedback= mappingMessage[propertyName]
-      else
-        .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+      .invalid-feedback= propertyErrors.map(({ message }) => t(message)).join('. ')
 
 mixin submit(form = null)
   input(class='btn btn-primary' type='submit')&attributes(attributes)
@@ -70,7 +66,7 @@ mixin select(entity, propertyName, placeholder, errors = {}, options = {})
     )&attributes(attributes)
       if !attributes.multiple
         option
-      - selectOptions = entity[propertyName] ? [entity[propertyName]].flat().map(Number) : []
+      - selectOptions = entity[propertyName] ? [entity[propertyName]].flat().map((op) => op.id ? op.id : op) : []
       each option in options
         - isSelected = _.includes(selectOptions, option.id)
         option(value= option.id selected= isSelected)= option.name
