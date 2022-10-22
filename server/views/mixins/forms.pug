@@ -49,7 +49,7 @@ mixin textarea(entity, propertyName, placeholder, errors = {})
       rows= "3"
     )&attributes(attributes)= _.get(entity, propertyName, '')
     if !_.isEmpty(propertyErrors)
-      .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+      .invalid-feedback= propertyErrors.map(({ message }) => t(message)).join('. ')
 
 mixin select(entity, propertyName, placeholder, errors = {}, options = {})
   - inputId= getInputId(propertyName)
@@ -71,7 +71,7 @@ mixin select(entity, propertyName, placeholder, errors = {}, options = {})
         - isSelected = _.includes(selectOptions, option.id)
         option(value= option.id selected= isSelected)= option.name
     if !_.isEmpty(propertyErrors)
-      .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+      .invalid-feedback= propertyErrors.map(({ message }) => t(message)).join('. ')
 
 mixin checkbox(entity, propertyName, label, filterOpts)
   - inputId = getInputId(propertyName)

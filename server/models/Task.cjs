@@ -38,8 +38,8 @@ module.exports = class Task extends BaseModel {
       name: json.name,
       description: json.description,
       creatorId: Number(opt.creatorId),
-      statusId: Number(json.statusId),
-      executorId: !json.executorId ? null : Number(json.executorId),
+      statusId: json.statusId ? Number(json.statusId) : null,
+      executorId: json.executorId ? Number(json.executorId) : null,
       labels: opt.labels ?? null,
     };
     return !newJson.id ? _.omit(newJson, ['id']) : newJson;

@@ -57,7 +57,6 @@ export default (app) => {
         .query()
         .findById(req.params.id)
         .withGraphJoined('[status, creator, executor, labels]');
-
       reply.render('tasks/view', { task });
       return reply;
     })
@@ -79,18 +78,16 @@ export default (app) => {
       return reply;
     })
     .post('/tasks', { name: 'createTask', preValidation: app.authenticate }, async (req, reply) => {
-      const labelsIds = _.toArray(_.get(req.body.data, 'labels', []));
-      const currentLabels = await app.objection.models.label
-        .query()
-        .findByIds(labelsIds);
-      const opt = { labels: currentLabels, creatorId: req.user.id };
-      const taskData = await app.objection.models.task.fromJson(req.body.data, opt);
-
+      const labelsIds = _.toArray(_.get(req.body.data, 'labels', [])).map((id) => Number(id));
+      const opt = { creatorId: req.user.id };
+      let taskData;
       try {
+        taskData = await app.objection.models.task.fromJson(req.body.data, opt);
         await app.objection.models.task.transaction(async (trx) => {
-          await app.objection.models.task
+          const task = await app.objection.models.task
             .query(trx)
-            .insertGraph(taskData, { relate: true });
+            .insert(taskData);
+          await Promise.all(labelsIds.map((id) => task.$relatedQuery('labels', trx).relate(id)));
         });
 
         req.flash('info', i18next.t('flash.tasks.create.success'));
@@ -118,12 +115,11 @@ export default (app) => {
       const opt = {
         id: req.params.id,
         creatorId: req.user.id,
-        labels: labelsIds,
       };
 
-      const taskData = await app.objection.models.task.fromJson(req.body.data, opt);
-
+      let taskData;
       try {
+        taskData = await app.objection.models.task.fromJson(req.body.data, opt);
         await app.objection.models.task.transaction(async (trx) => {
           await task.$query(trx).patch(taskData);
           await task.$relatedQuery('labels', trx).unrelate();

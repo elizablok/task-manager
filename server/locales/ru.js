@@ -174,6 +174,7 @@ export default {
           },
           statusId: {
             minimum: 'Обязательно',
+            type: 'Выберите из статус спика',
           },
         },
       },
