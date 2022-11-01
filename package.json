@@ -1,8 +1,8 @@
 {
-  "name": "@hexlet/code",
+  "name": "task-manager",
   "version": "1.0.0",
   "type": "module",
-  "description": "[![Actions Status](https://github.com/elizablok/backend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/elizablok/backend-project-lvl4/actions)",
+  "description": "Task Manager",
   "main": "server/plugin.js",
   "engines": {
     "node": ">=16.x"
@@ -23,14 +23,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elizablok/backend-project-lvl4.git"
+    "url": "git+https://github.com/elizablok/task-manager.git"
   },
   "author": "eliza_blok",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/elizablok/backend-project-lvl4/issues"
+    "url": "https://github.com/elizablok/task-manager/issues"
   },
-  "homepage": "https://github.com/elizablok/backend-project-lvl4#readme",
+  "homepage": "https://github.com/elizablok/task-manager#readme",
   "dependencies": {
     "@vscode/sqlite3": "^5.0.8",
     "bootstrap": "^5.1.3",
